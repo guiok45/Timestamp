@@ -5,16 +5,6 @@
 var express = require('express');
 var app = express();
 
-// Root route (optional UI)
-app.get("/", (req, res) => {
-  res.send(`
-    <h1>Timestamp Microservice</h1>
-    <p>Use endpoint: /api/:date?</p>
-    <p>Example: /api/2015-12-25 or /api/1451001600000</p>
-  `);
-});
-
-
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
@@ -28,13 +18,6 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
-
-// API endpoint
 app.get("/api/:date?", (req, res) => {
   let { date } = req.params;
 
@@ -64,15 +47,7 @@ app.get("/api/:date?", (req, res) => {
   });
 });
 
-// Server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-
-
